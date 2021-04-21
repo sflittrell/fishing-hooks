@@ -1,19 +1,18 @@
 import './App.css';
 import React, { useState, useEffect } from 'react';
 import Axios from 'axios';
-import ProductLite from './ProductLite';
+import ProductsPage from './ProductsPage';
+import Cart from './Cart';
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 
 function App() {
-  const [products, setProducts] = useState([]);
+  const [productsList, setProductsList] = useState([]);
+  const [cart, setCart] = useState([]);
 
   const axiosCall = () => {
     let apiUrl = `https://awesomeincbootcampapi-ianrios529550.codeanyapp.com/api/store/products`;
     Axios.get(apiUrl).then((response) => {
-      let tempData = response.data.map((obj) => {
-        obj.inCart = false;
-        return obj;
-      })
-      setProducts(tempData)
+      setProductsList(response.data)
     })
       .catch(function (error) {
         console.log(error);
@@ -22,44 +21,80 @@ function App() {
 
   useEffect(axiosCall, []);
 
+  useEffect(() => {
+      let lSCart = window.localStorage.getItem('cart');
+      if (lSCart !== cart) {
+        setCart(JSON.parse(lSCart));
+      }
+    }, [])
+
+  const updateCart = (cart) => {
+    setCart(cart);
+    window.localStorage.setItem('cart', JSON.stringify(cart))
+    // console.log(cart);
+  }
+
+  const addToCart = (index) => {
+    // console.log(cart);
+    let temp = cart || [];
+    temp.push(productsList[index])
+    console.log(temp);
+    updateCart(temp);
+    // console.log(cart)
+  }
+
+  const removeFromCart = (index) => {
+    let temp = cart;
+    temp.splice(productsList[index], 1);
+    updateCart(temp);
+  }
+
   // useEffect(() => {
-  //   let lSProducts = window.localStorage.getItem('products');
-  //   if (lSProducts !== products) {
-  //     setProducts(JSON.parse(lSProducts));
+  //   let lSCart = window.localStorage.getItem('cart');
+  //   if (lSCart !== cart) {
+  //     setCart(JSON.parse(lSCart));
   //   } else {
   //   }
   //   console.log('log from use effect');
-  // }, [products])
+  // }, [productsList])
 
   //  const updateProducts = () => {
-  //   setProducts()
-  //   window.localStorage.setItem('products', JSON.stringify(products))
+  //   setProductsList()
+  //   window.localStorage.setItem('productsList', JSON.stringify(productsList))
   // }
 
   // useEffect(() => {
   //   console.log('set state')
-  //   window.localStorage.setItem('products', Jason.stringify(products))
+  //   window.localStorage.setItem('productsList', Jason.stringify(productsList))
   // })
 
 
 
   return (
     <div className="container">
-
-      <div>
+      <Router>
+        {/* {console.log(productsList)} */}
         <h1 className="fw-bold">FishHooks Bait and Tackle</h1>
-        <div className="row">
-          <div className="col">
-            {products.map((products, index) =>
-              <ProductLite
+        <Switch>
+          {/* <Cart
                 key={index}
-                product={products}
-              />
-            )}
-          </div>
-        </div>
-      </div>
-
+                index={index}
+                cart={cart}
+                removeFromCart={removeFromCart}
+              /> */}
+          <Route path='/productsPage'>
+          {productsList.map((productsList, index) =>
+            <ProductsPage
+              key={index}
+              index={index}
+              productsList={productsList}
+              // cart={cart}
+              addToCart={addToCart}
+            />
+          )}
+          </Route>
+        </Switch>
+      </Router>
     </div>
   );
 }

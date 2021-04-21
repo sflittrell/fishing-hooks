@@ -20,7 +20,7 @@ To complete the assignment, you must complete one of the following Paths (on an 
 </ul>
 
 
-## Psuedocode
+## Pseudocode
 
 ### Components
 
@@ -49,26 +49,37 @@ To complete the assignment, you must complete one of the following Paths (on an 
         Cart - 
 
 
-#### Product
-    A page for each product
+#### ProductsPage
+    A page that shows all products
 
 State
+    productList - an array of item objects from the Axios API Call
+    cart - an array of items to display in the cart, user can add and remove items from this array with a button click
 
 
 
 Methods
+    axiosCall - an Axios call to get all the products to be listed in the shop
 
+    addToCart - adds a product to the cart array
+
+    removeCart - removes a product from the cart array
 
 
 Render
 Product Name
-Description
-Cost
 Add to Cart button
 
 
+#### ProductPage
 
-#### Cart
+Render
+    Product Name
+    Description
+    Cost
+    Add to Cart button
+
+#### CartPage
 
 Methods
 inCart - a function that maps through the productList array and 
