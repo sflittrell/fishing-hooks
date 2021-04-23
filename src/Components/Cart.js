@@ -1,24 +1,22 @@
-function Cart(props) {
+import React from 'react'
+import {Link } from 'react-router-dom';
+
+
+function Cart({item, removeFromCart, index}) {
 
     return (
-        <div className="container">
-            <div className="row">
-                <div className="col">
+        <div className="container border p-3">
+                <Link className="fs-4 fw-bold" to={`product/${item.id}`}>
+                    {item.name}
+                </Link>
                 <div>
-                    Shopping Cart
+                    ${item.price.toFixed(2)}
                 </div>
-                <div>
-                    {props.cart.name}
-                </div>
-                <div>
-                    {props.cart.price}
-                </div>
-                <div onClick={() => props.removeFromCart(props.index)}>
+                <div className="fs-6 text-muted text-decoration-underline" onClick={() => removeFromCart(index)}>
                     Remove from cart
                 </div>
-                </div>
-            </div>
         </div>
+    
     )
 }
 export default Cart;
