@@ -5,6 +5,7 @@ import ProductsPage from './ProductsPage';
 import Cart from './Cart';
 import Header from './Header';
 import Product from './Product';
+import Splash from './Splash';
 import { BrowserRouter as Router, Switch, Route, } from 'react-router-dom';
 
 function App() {
@@ -37,7 +38,10 @@ function App() {
   }
 
   const addToCart = (index) => {
-    let temp = [...cart] || [];
+    let temp = [];
+    if (cart !== null) {
+      temp = [...cart]
+    }
     temp.push(productsList[index])
     console.log(temp);
     updateCart(temp);
@@ -65,7 +69,12 @@ function App() {
         <Header />
         <Switch>
 
+          <Route exact path='/'>
+            <Splash />
+          </Route>
+
           <Route path='/cart'>
+          <h2 className="fw-bold mt-3">Shopping Cart</h2>
             {cart !== null ?
               cart.map((product, index) =>
                 <Cart
@@ -81,7 +90,7 @@ function App() {
 
           </Route>
           <Route path='/products'>
-            <h2 className="fw-bold">Product List</h2>
+            <h2 className="fw-bold mt-3">Product List</h2>
             {productsList.map((product, index) =>
               <ProductsPage
                 key={index}

@@ -7,7 +7,7 @@ function Header() {
         <div>
             <nav className="navbar navbar-expand-sm navbar-light bg-light">
                 <div className="container-fluid">
-                    <Link className="navbar-brand" to={'/'}>FishHooks Bait and Tackle</Link>
+                    <Link className="navbar-brand" to={'/'}>Hook Line & Sinker</Link>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                     </button>
@@ -23,6 +23,9 @@ function Header() {
                     </div>
                 </div>
             </nav>
+            <div className="d-flex">
+            <img className="img-fluid mainImage" src="../img/baitTackle.png" />
+            </div>
         </div>
     )
 }
