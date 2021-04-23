@@ -67,11 +67,11 @@ function App() {
 
           <Route path='/cart'>
             {cart !== null ?
-              cart.map((item, index) =>
+              cart.map((product, index) =>
                 <Cart
                   key={index}
                   index={index}
-                  item={item}
+                  product={product}
                   removeFromCart={removeFromCart}
                 />
               )
